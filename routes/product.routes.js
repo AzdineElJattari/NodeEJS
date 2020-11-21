@@ -12,13 +12,9 @@ let data = [
 ];
 
 module.exports = function (router) {
-    router.get('/', function (req, res) {
-        res.render(path.resolve('../ProductsOefMongo/views/Home.ejs'), {products: productController.findProduct.Data});
-        console.log(productController.findProduct.Data)
-    });
-    /*router.get('/get', productController.findProduct);
-    router.post("/", productController.create);
-    router.get('/:name', productController.findOne);
-    router.put('/:name', productController.updateProduct);
-    router.delete('/:name', productController.delete);*/
+    router.get('/',  productController.findAll);
+    router.post('/', productController.create);
+    router.get('/:id', productController.findOne);
+    router.put('/:id', productController.updateProduct);
+    router.delete('/:id', productController.delete);
 }

@@ -1,7 +1,5 @@
 const Product = require("../models/product.model");
-require("express");
 
-var arr = [];
 exports.create = (req, res) => {
 
     if (!req.body.name || !req.body.price || !req.body.brand || !req.body.description) {
@@ -24,7 +22,7 @@ exports.create = (req, res) => {
     product
         .save()
         .then((data) => {
-            res.send(data);
+            res.redirect(301, "/")
         })
         .catch((err) => {
             res.status(500).send({
@@ -32,31 +30,14 @@ exports.create = (req, res) => {
             });
         });
 };
-exports.findProduct = {
-    Test: Product
-        /*.find()
-                .then((products) => {
-                    products
-                    res.status(200).send(products);
-                })
-                .catch((err) => {
-                    res.status(500).send({
-                        message: err.message || "Error has occured!",
-                    });
-                });*/
-
-        .find({})
-        .exec(function (err, data) {
-
-            if (err) {
-                throw err;
-            }
-            arr = data;
-        }),
-    Data: console.log(arr)
-
+exports.findAll = (req, res) => {
+    Product.find({}, function (err, docs) {
+        if(err) {
+            throw err;
+        }
+        res.render('Home.ejs', {products: docs});
+  });
 };
-
 exports.findOne = (req, res) => {
     Product.findById(req.params.id)
         .then((product) => {
@@ -74,16 +55,17 @@ exports.findOne = (req, res) => {
         });
 };
 exports.delete = (req, res) => {
-    Product.findByIdAndRemove(req.body.name)
+    Product.findByIdAndRemove(req.params.id)
         .then((product) => {
             if (!product) {
                 return res.status(404).send({
-                    message: "Product not found ",
+                    message: "Product not found",
                 });
             }
-            res.send({
+            /*res.send({
                 message: "Product deleted successfully!"
-            });
+            });*/
+            res.redirect(301, "/");
         })
         .catch((err) => {
             return res.status(500).send({

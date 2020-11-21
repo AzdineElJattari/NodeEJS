@@ -1,7 +1,6 @@
 var express = require('express');
 var log = require('morgan')('dev');
 var bodyParser = require('body-parser');
-
 var properties = require('./configuration/properties');
 var db = require('./configuration/db');
 //hero routes
@@ -11,6 +10,9 @@ var app = express();
 //configure bodyparser
 var bodyParserJSON = bodyParser.json();
 var bodyParserURLEncoded = bodyParser.urlencoded({extended:true});
+
+var methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 //initialise express router
 var router = express.Router();
