@@ -79,7 +79,7 @@ exports.updateProduct = (req, res) => {
             message: "Required fields cannot be empty",
         });
     }
-    User.findByIdAndUpdate(req.params.id, req.body, {
+    Product.findByIdAndUpdate(req.params.id, req.body, {
             new: true
         })
         .then((product) => {
