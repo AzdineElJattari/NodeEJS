@@ -88,6 +88,7 @@ exports.updateProduct = (req, res) => {
                     message: "No product found",
                 });
             }
+            
             res.status(200).send(user);
         })
         .catch((err) => {
